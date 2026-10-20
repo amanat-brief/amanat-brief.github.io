@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Бриф на дизайн-проект — Amanat Engineering</title>
+<style>
+:root{
+  --ink:#1E1913;
+  --paper:#EFE7DA;
+  --card:#FFFDF8;
+  --line:#D9CCB4;
+  --gold:#B98A3E;
+  --gold-l:#D9B36C;
+  --cream:#F5E9CF;
+  --muted:#6F6556;
+  --serif:'Iowan Old Style','Palatino Linotype','Book Antiqua',Georgia,serif;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 var(--sans)}
+button,input,textarea{font-family:inherit}
+:focus-visible{outline:3px solid var(--gold-l);outline-offset:2px}
+
+/* header */
+.top{position:sticky;top:0;z-index:10;background:var(--ink);color:var(--cream);padding:calc(10px + env(safe-area-inset-top)) 16px 2px}
+.top-in{max-width:640px;margin:0 auto}
+.brand{font-size:12px;letter-spacing:.06em;color:var(--gold-l)}
+.top h1{font-family:var(--serif);font-weight:500;font-size:20px;line-height:1.2;margin:2px 0 6px}
+.segs{display:flex;gap:3px;margin:0 -2px}
+.seg{flex:1;height:26px;background:none;border:0;padding:0;position:relative;cursor:pointer}
+.seg::after{content:'';position:absolute;left:2px;right:2px;top:11px;height:4px;border-radius:2px;background:rgba(245,233,207,.22)}
+.seg.done::after{background:var(--gold-l)}
+.seg.cur::after{top:9px;height:8px;border-radius:4px;background:var(--cream)}
+
+/* content */
+main{max-width:640px;margin:0 auto;padding:20px 16px 130px}
+.stepno{font-size:13px;color:var(--muted)}
+.stephead h2{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.15;margin:2px 0 6px;outline:none}
+.lead{color:var(--muted);margin:0 0 22px}
+.welcome{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 24px;font-size:15px}
+.welcome b{font-weight:600}
+
+.f{margin:0 0 22px}
+.lab{display:block;font-weight:600;font-size:15px;margin-bottom:4px}
+.hint{font-size:13px;color:var(--muted);margin:0 0 8px}
+input[type=text],input[type=tel],textarea{
+  width:100%;font-size:16px;line-height:1.4;padding:12px 14px;border:1.5px solid var(--line);
+  border-radius:10px;background:#fff;color:var(--ink);-webkit-appearance:none;appearance:none}
+input::placeholder,textarea::placeholder{color:#A89D8A}
+input:focus,textarea:focus{border-color:var(--ink)}
+textarea{min-height:92px;resize:vertical}
+.inp-unit{position:relative}
+.inp-unit input{padding-right:48px}
+.inp-unit span{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{font-size:15px;line-height:1.25;min-height:44px;padding:9px 15px;border-radius:22px;border:1.5px solid var(--line);
+  background:#fff;color:var(--ink);cursor:pointer;text-align:left;-webkit-tap-highlight-color:transparent;
+  transition:background .12s,border-color .12s,color .12s}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+.chip.on::before{content:'✓';color:var(--gold-l);margin-right:7px;font-weight:700}
+
+.sub{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:16px 16px 0;margin:0 0 18px}
+.sub h3{font-family:var(--serif);font-weight:500;font-size:22px;margin:0 0 14px}
+.empty{background:var(--card);border:1px dashed var(--gold);border-radius:12px;padding:16px;margin:0 0 20px;color:var(--muted)}
+
+.stepper{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:12px;background:#fff;margin-top:6px}
+.stepper button{width:52px;height:48px;border:0;background:none;font-size:24px;color:var(--ink);cursor:pointer}
+.stepper .val{min-width:36px;text-align:center;font-size:18px;font-weight:600}
+
+.check{display:flex;gap:12px;align-items:flex-start;font-size:15px;cursor:pointer}
+.check input{width:24px;height:24px;margin:1px 0 0;accent-color:var(--ink);flex:none}
+details.terms{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:0 0 22px;font-size:14px}
+details.terms summary{cursor:pointer;font-weight:600;min-height:28px}
+details.terms ul{margin:10px 0 0;padding-left:20px;color:#3B342B}
+details.terms li{margin:0 0 6px}
+
+#preview{min-height:320px;font-size:14px;line-height:1.45}
+.actions{display:flex;flex-direction:column;gap:10px;margin:14px 0 8px}
+.linkbtn{background:none;border:0;padding:10px 0;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:14px;text-align:left}
+.after{font-size:13px;color:var(--muted);margin:0 0 6px}
+
+/* bottom bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--paper);border-top:1px solid var(--line);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.bar-in{max-width:640px;margin:0 auto;display:flex;gap:10px}
+.btn{font-size:16px;font-weight:600;min-height:50px;border-radius:12px;padding:0 22px;border:1.5px solid var(--ink);
+  background:transparent;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.btn.pri{background:var(--ink);color:var(--cream);flex:1}
+.btn.big{width:100%}
+
+/* PDF (рендерится за экраном) */
+.pdfroot{position:fixed;left:-10000px;top:0;width:794px}
+.pdfpage{position:relative;width:794px;height:1123px;background:#fff;overflow:hidden;color:#1E1913;font:14px/1.45 var(--sans)}
+.pdfbody{padding:44px 48px 0;display:flow-root}
+.pdffoot{position:absolute;left:48px;right:48px;bottom:26px;display:flex;justify-content:space-between;font-size:11px;color:#8A7F6E;border-top:1px solid #D9CCB4;padding-top:8px}
+.pdfhead{background:#1E1913;color:#F5E9CF;margin:-44px -48px 20px;padding:34px 48px 26px}
+.pdfhead .b{font-size:12px;letter-spacing:.06em;color:#D9B36C}
+.pdfhead h1{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.15;margin:6px 0 6px}
+.pdfhead .d{font-size:13px;color:#CDBF9F}
+.pdfh2{font-family:var(--serif);font-weight:500;font-size:20px;margin:22px 0 8px;padding-left:12px;border-left:4px solid #B98A3E}
+.pdfh3{font-family:var(--serif);font-weight:600;font-size:16px;margin:12px 0 2px}
+.pdfrow{display:flex;gap:16px;padding:7px 0;border-bottom:1px solid #EFE7DA}
+.pdfrow .l{width:190px;flex:none;color:#6F6556}
+.pdfrow .v{flex:1;min-width:0;overflow-wrap:anywhere}
+.pdfrow.pdfsub{padding-left:14px}
+.pdfp{font-size:12px;line-height:1.5;color:#3B342B;margin:0 0 6px}
+#toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));transform:translate(-50%,12px);
+  background:var(--ink);color:var(--cream);padding:12px 18px;border-radius:12px;font-size:15px;max-width:calc(100% - 32px);
+  text-align:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:20}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand">Amanat Engineering</div>
+    <h1>Бриф для дизайнера</h1>
+    <div class="segs" id="segs" role="navigation" aria-label="Шаги брифа"></div>
+  </div>
+</header>
+
+<main id="stage"></main>
+
+<div class="bar">
+  <div class="bar-in">
+    <button type="button" class="btn" id="back">Назад</button>
+    <button type="button" class="btn pri" id="next">Далее</button>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+
+/* ---------- данные ---------- */
+const STYLES=['Классика','Неоклассика','Ар-деко','Хай-тек','Шале','Лофт','Этника','Минимализм','Скандинавский','Современный'];
+
+const ROOMS=['Спальня хозяйская','Детская','Гостиная','Кухня отдельная','Кухня-столовая','Кухня-гостиная-столовая',
+  'Кабинет','Рабочая зона в комнате','Санузел гостевой','Санузел детский','Санузел общий','Ванная хозяйская','Ванная общая','Постирочная'];
+const BATHS=['Санузел гостевой','Санузел детский','Санузел общий','Ванная хозяйская','Ванная общая'];
+
+const STEPS=[
+ {name:'Объект',title:'Об объекте',lead:'Основные данные, чтобы дизайнер понимал, с чем работает.',out:'ОБ ОБЪЕКТЕ',fields:[
+  {t:'text',k:'1.name',label:'Фамилия и имя',short:'ФИО',ph:'Фамилия Имя',ac:'name'},
+  {t:'tel',k:'1.phone',label:'Контактный номер',short:'Телефон',ph:'+7',ac:'tel'},
+  {t:'text',k:'1.addr',label:'Где находится объект',hint:'ЖК, адрес, квартира, подъезд, этаж',short:'Объект',ph:'ЖК, улица, кв., подъезд, этаж'},
+  {t:'num',k:'1.area',label:'Площадь',short:'Площадь',unit:'м²',ph:'0'},
+  {t:'single',k:'1.replan',label:'Нужна ли перепланировка?',short:'Перепланировка',opts:['Не нужна','Нужна','Пока не знаю']},
+  {t:'area',k:'1.replanNote',label:'Что именно перепланировать',hint:'В каких комнатах снос или новые перегородки',short:'Перепланировка, детали',ph:'Убрать стену между кухней и гостиной'}
+ ]},
+ {name:'Семья и быт',title:'Семья и быт',lead:'Чем лучше дизайнер знает, как вы живёте, тем удобнее будет планировка.',out:'СЕМЬЯ И БЫТ',fields:[
+  {t:'area',k:'2.people',label:'Кто будет жить в квартире',hint:'Имя, возраст, кем приходится',short:'Проживают',ph:'Марат, 40, муж\nДина, 37, жена\nАлим, 8, сын'},
+  {t:'multi',k:'2.pets',label:'Домашние животные',short:'Питомцы',opts:['Нет','Кошка','Собака','Другие'],excl:'Нет'},
+  {t:'text',k:'2.petsNote',label:'Сколько их и что учесть',short:'Питомцы, детали',ph:'Две кошки, лоток нужно спрятать'},
+  {t:'area',k:'2.hobby',label:'Хобби членов семьи',hint:'Всё, для чего нужно отдельное место или хранение',short:'Хобби',ph:'Папа увлекается охотой, мама играет на рояле, много читаем'},
+  {t:'text',k:'2.hand',label:'Кто правша, кто левша',short:'Правша / левша',ph:'Папа — левша, остальные правши'},
+  {t:'single',k:'2.guests',label:'Как часто у вас бывают гости',short:'Гости',opts:['Редко','Часто','Часто с ночёвкой','Живут подолгу']},
+  {t:'single',k:'2.work',label:'Рабочее место дома',short:'Рабочее место',opts:['Отдельный кабинет','Зона в жилой комнате','Не нужно']},
+  {t:'area',k:'2.storage',label:'Пожелания к хранению',short:'Хранение',ph:'Много больших коробок — спрятать так, чтобы не было видно'},
+  {t:'area',k:'2.existing',label:'Что из имеющегося оставить в интерьере',hint:'Мебель, ковры, приборы, инструменты, книги. Фото можно отправить в этот же чат.',short:'Имеющиеся предметы',ph:'Рояль, кожаный диван, коллекция книг'}
+ ]},
+ {name:'Комнаты',title:'Какие комнаты нужны',lead:'Отметьте всё, что должно быть в квартире.',out:'ПОМЕЩЕНИЯ',fields:[
+  {t:'multi',k:'3.rooms',label:'Помещения',short:'Нужны',opts:ROOMS},
+  {t:'step',k:'3.kids',label:'Сколько детских комнат',min:1,max:5,box:'kidsBox',skip:true},
+  {t:'text',k:'3.more',label:'Что-то ещё',short:'Ещё помещения',ph:'Гардеробная, кладовая, мастерская'}
+ ]},
+ {name:'Что в комнатах',title:'Что должно быть в комнатах',lead:'Для каждой выбранной комнаты — свой блок. Нажимайте на нужное или пишите своё.',dynamic:true},
+ {name:'Кухня',title:'Кухня',lead:'Техника и мебель. Если что-то не нужно, просто пропустите.',out:'КУХНЯ',fields:[
+  {t:'single',k:'5.hob',label:'Варочная поверхность',short:'Варочная',opts:['Газовая','Электрическая']},
+  {t:'single',k:'5.oven',label:'Духовой шкаф',short:'Духовой шкаф',opts:['Обычный','На уровне груди','Не нужен']},
+  {t:'multi',k:'5.fridge',label:'Холодильник',short:'Холодильник',opts:['Отдельностоящий','Встроенный','Двухдверный']},
+  {t:'single',k:'5.dw',label:'Посудомоечная машина',short:'Посудомойка',opts:['60 см','45 см','Не нужна']},
+  {t:'single',k:'5.micro',label:'Микроволновая печь',short:'СВЧ',opts:['Отдельностоящая','Встроенная','Не нужна']},
+  {t:'single',k:'5.coffee',label:'Кофейный аппарат',short:'Кофемашина',opts:['Отдельностоящий','Встроенный','Не нужен']},
+  {t:'single',k:'5.hood',label:'Вытяжка',short:'Вытяжка',opts:['Открытая','Спрятана в шкаф']},
+  {t:'single',k:'5.sink',label:'Мойка',short:'Мойка',opts:['Одинарная','Двойная']},
+  {t:'multi',k:'5.tv',label:'Телевизор',short:'Телевизор',opts:['Нужен на кухне']},
+  {t:'area',k:'5.techNote',label:'Ещё из техники',short:'Ещё техника',ph:'Винный шкаф'},
+  {t:'multi',k:'5.furn',label:'Мебель, кроме основного гарнитура',short:'Мебель',opts:['Остров или барная стойка','Раскладной обеденный стол','Обычный обеденный стол','Диван или мягкий уголок с хранением','Стулья','Кресла']},
+  {t:'num',k:'5.persons',label:'Обеденный стол — на сколько персон',short:'Стол на персон',ph:'6'},
+  {t:'area',k:'5.furnNote',label:'Ещё по кухне',short:'Кухня, ещё',ph:'Всё, чего нет в списке'}
+ ]},
+ {name:'Инженерия',title:'Балконы, полы, системы',lead:'Что нужно предусмотреть в инженерных решениях.',out:'ИНЖЕНЕРИЯ',fields:[
+  {t:'single',k:'6.balcony',label:'Балкон или лоджия',short:'Балкон / лоджия',opts:['Утеплить, с тёплым полом','Без утепления, обычная отделка','Объединить с комнатой','Балкона нет']},
+  {t:'multi',k:'6.heat',label:'Тёплые полы — где обязательно',short:'Тёплые полы',opts:['Санузлы','Кухня','Прихожая','Спальня','Гостиная','Детская','Лоджия','Не нужны'],excl:'Не нужны'},
+  {t:'multi',k:'6.ac',label:'Кондиционер — в каких комнатах',short:'Кондиционер',opts:['Спальня','Гостиная','Детская','Кабинет','Кухня','Не нужен'],excl:'Не нужен'},
+  {t:'single',k:'6.washer',label:'Где будет стиральная машина',short:'Стиральная машина',opts:['Постирочная','Ванная','Гостевой санузел','Кухня','Прихожая']},
+  {t:'multi',k:'6.sys',label:'Какие системы нужны',short:'Системы',opts:['Водонагреватель проточный','Водонагреватель накопительный','Система вентиляции','Умный дом','Робот-пылесос','Датчики протечки','Фильтры грубой и мягкой очистки','Коллекторный узел']},
+  {t:'area',k:'6.sysNote',label:'Ещё или уточнения',short:'Системы, ещё',ph:'Робот-пылесос: розетки в спальне и гостиной'}
+ ]},
+ {name:'Стиль',title:'Стиль, цвет, материалы',lead:'Не бойтесь неточных слов, дизайнер уточнит. Можно приложить в чат фото, которые нравятся.',out:'СТИЛЬ И МАТЕРИАЛЫ',fields:[
+  {t:'multi',k:'7.style',label:'Стиль',short:'Стиль',opts:STYLES},
+  {t:'area',k:'7.styleNote',label:'Опишите интерьер своими словами',short:'Описание',ph:'Светло, много воздуха, тёплое дерево, без лишнего декора'},
+  {t:'multi',k:'7.color',label:'Цвета',short:'Цвета',opts:['Тёплые','Холодные','Пастельные','Яркие','Тёмные','Светлые','Светлые с контрастными деталями']},
+  {t:'area',k:'7.colorNote',label:'Цвета по комнатам, если уже знаете',short:'Цвета по комнатам',ph:'Спальня — серо-зелёная, кухня — светлая'},
+  {t:'multi',k:'7.light',label:'Освещение',short:'Освещение',opts:['Трек','Софиты','Споты','Люстры','Световые линии','Парящий потолок','Парящая ванна, душ, кровать','Бра или подвесной светильник','Закарнизная подсветка']},
+  {t:'text',k:'7.lightNote',label:'Пожелания по свету',short:'Свет, ещё',ph:'Люблю яркий свет, но в спальне приглушённый'},
+  {t:'multi',k:'7.floor',label:'Полы',short:'Полы',opts:['Паркет','Ламинат','Камень','Керамогранит','Микроцемент']},
+  {t:'text',k:'7.floorNote',label:'Где какие полы',short:'Полы по комнатам',ph:'Кухня и санузлы — керамогранит, остальное — паркет'},
+  {t:'multi',k:'7.wall',label:'Стены',short:'Стены',opts:['Покраска','Обои','Обои под покраску','Штукатурка','Художественное оформление','Панели']},
+  {t:'text',k:'7.wallNote',label:'Где какие стены',short:'Стены по комнатам',ph:'Гостиная — панели, спальня — обои'},
+  {t:'multi',k:'7.ceil',label:'Потолки',short:'Потолки',opts:['Одноуровневые','Сложной формы','Штукатурка','Натяжные','Теневой','Парящий','Галтель','Резиновая вставка']},
+  {t:'text',k:'7.ceilNote',label:'Где какие потолки',short:'Потолки по комнатам',ph:'В гостиной — сложной формы'}
+ ]},
+ {name:'Отправка',title:'Проверьте и отправьте',lead:'Осталось отправить бриф в рабочий чат.',final:true}
+];
+const LAST=STEPS.length-1;
+
+const OTHER={t:'area',k:'4.other',label:'Другие помещения',hint:'Прихожая, постирочная, кабинет и всё, что не вошло выше',short:'Другие помещения',ph:'Прихожая: шкаф до потолка и банкетка'};
+const NOTE={t:'area',k:'8.note',label:'Что ещё важно дизайнеру',short:'Дополнительно',ph:'Любые пожелания, которые не поместились выше'};
+
+/* ---------- состояние ---------- */
+const KEY='amanat_brief_v1';
+let state={}, cur=0, uid=0;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify({state,cur}))}catch(e){}}
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&d.state){state=d.state;cur=Math.min(d.cur||0,LAST)}}catch(e){}}
+
+/* ---------- блоки для динамического шага ---------- */
+function cards(){
+  const rooms=state['3.rooms']||[], has=n=>rooms.includes(n), out=[];
+  if(has('Спальня хозяйская')) out.push({title:'Спальня',fields:[
+    {t:'single',k:'4.bed.w',label:'Кровать, ширина в мм',short:'Кровать (мм)',opts:['1400','1600','1800','2000','King size 2200–2300']},
+    {t:'multi',k:'4.bed.i',label:'Что должно быть',short:'Состав',opts:['Тумбы по обе стороны кровати','Комод','Шкаф для одежды','Телевизор','Зона лёгкого хранения у телевизора','Дамский столик']},
+    {t:'area',k:'4.bed.n',label:'Ещё в спальню',short:'Ещё',ph:'Всё, чего нет в списке'}]});
+  if(has('Гостиная')||has('Кухня-гостиная-столовая')) out.push({title:'Гостиная',fields:[
+    {t:'single',k:'4.liv.shape',label:'Диван: форма',short:'Диван, форма',opts:['Угловой','Прямой','С «языком»']},
+    {t:'single',k:'4.liv.kind',label:'Диван: тип',short:'Диван, тип',opts:['Простой','Раскладной']},
+    {t:'num',k:'4.liv.seats',label:'На сколько человек диван',short:'Мест на диване',ph:'6'},
+    {t:'multi',k:'4.liv.i',label:'Что ещё должно быть',short:'Состав',opts:['Кресла','Пуфик','Журнальный столик','Зона с телевизором','Проектор и экран','Место для игр у телевизора']},
+    {t:'area',k:'4.liv.n',label:'Ещё в гостиную',short:'Ещё',ph:'Всё, чего нет в списке'}]});
+  const kids=has('Детская')?(+state['3.kids']||1):0;
+  for(let i=1;i<=kids;i++) out.push({title:kids>1?'Детская '+i:'Детская',fields:[
+    {t:'text',k:`4.kid${i}.who`,label:'Для кого',hint:'Имя и возраст',short:'Для кого',ph:'Алим, 8 лет'},
+    {t:'single',k:`4.kid${i}.w`,label:'Кровать, ширина в мм',short:'Кровать (мм)',opts:['700','900','1200','1400','1600']},
+    {t:'multi',k:`4.kid${i}.i`,label:'Что должно быть',short:'Состав',opts:['Письменный стол и стул','Диван простой','Диван раскладной','Игровая зона','«Мягкое» окно','Хранение книг и игрушек','Шкаф для одежды','Туалетный стол']},
+    {t:'area',k:`4.kid${i}.n`,label:'Ещё в детскую',short:'Ещё',ph:'Всё, чего нет в списке'}]});
+  BATHS.forEach(b=>{ if(!has(b)) return; const p='4.b'+ROOMS.indexOf(b)+'.';
+    out.push({title:b,fields:[
+      {t:'single',k:p+'wc',label:'Унитаз',short:'Унитаз',opts:['Подвесной','Напольный']},
+      {t:'multi',k:p+'hyg',label:'Гигиена',short:'Гигиена',opts:['Биде','Гигиенический душ']},
+      {t:'multi',k:p+'wash',label:'Ванна или душ',short:'Мытьё',opts:['Душевая кабина','Ванна','Угловая ванна','Джакузи']},
+      {t:'single',k:p+'bl',label:'Длина ванны, мм (если нужна ванна)',short:'Длина ванны (мм)',opts:['1500','1700','1800']},
+      {t:'single',k:p+'bw',label:'Ширина ванны, мм',short:'Ширина ванны (мм)',opts:['70','80','85','90']},
+      {t:'single',k:p+'sink',label:'Раковина',short:'Раковина',opts:['Одна','Две']},
+      {t:'single',k:p+'towel',label:'Полотенцесушитель',short:'Полотенцесушитель',opts:['Электрический','Водяной','Не нужен']},
+      {t:'multi',k:p+'i',label:'Что ещё должно быть',short:'Состав',opts:['Мебель под раковину','Зеркало','Шкаф для хранения','Стиральная машина']},
+      {t:'area',k:p+'n',label:'Ещё',short:'Ещё',ph:'Всё, чего нет в списке'}]}); });
+  return out;
+}
+
+/* ---------- отрисовка полей ---------- */
+function fieldHtml(f){
+  if(f.t==='hint') return '';
+  const id='f'+(++uid), val=state[f.k];
+  const hint=f.hint?`<div class="hint">${esc(f.hint)}</div>`:'';
+  const lab=`<label class="lab" for="${id}">${esc(f.label)}</label>${hint}`;
+  if(f.t==='text'||f.t==='tel')
+    return `<div class="f">${lab}<input id="${id}" type="${f.t}" data-k="${f.k}" value="${esc(val||'')}" placeholder="${esc(f.ph||'')}"${f.ac?` autocomplete="${f.ac}"`:''}></div>`;
+  if(f.t==='num')
+    return `<div class="f">${lab}<div class="inp-unit"><input id="${id}" type="text" inputmode="decimal" data-k="${f.k}" value="${esc(val||'')}" placeholder="${esc(f.ph||'')}">${f.unit?`<span>${f.unit}</span>`:''}</div></div>`;
+  if(f.t==='area')
+    return `<div class="f">${lab}<textarea id="${id}" data-k="${f.k}" placeholder="${esc(f.ph||'')}">${esc(val||'')}</textarea></div>`;
+  if(f.t==='single'||f.t==='multi'){
+    const m=f.t==='multi'?'m':'s';
+    const on=v=>m==='m'?(Array.isArray(val)&&val.includes(v)):val===v;
+    return `<div class="f"><div class="lab" id="${id}">${esc(f.label)}</div>${hint}<div class="chips" role="group" aria-labelledby="${id}"${f.excl?` data-excl="${esc(f.excl)}"`:''}>`+
+      f.opts.map(o=>`<button type="button" class="chip${on(o)?' on':''}" data-k="${f.k}" data-v="${esc(o)}" data-m="${m}" aria-pressed="${on(o)}">${esc(o)}</button>`).join('')+`</div></div>`;
+  }
+  if(f.t==='step'){
+    const show=(state['3.rooms']||[]).includes('Детская');
+    return `<div class="f" id="${f.box}"${show?'':' hidden'}><div class="lab">${esc(f.label)}</div><div class="stepper"><button type="button" data-step="-1" data-k="${f.k}" aria-label="Меньше">−</button><span class="val" id="kidsVal">${+val||1}</span><button type="button" data-step="1" data-k="${f.k}" data-min="${f.min}" data-max="${f.max}" aria-label="Больше">+</button></div></div>`;
+  }
+  return '';
+}
+
+const TERMS=[
+ 'В ходе утверждения дизайн-проекта допускается не более двух переделок.',
+ 'Дизайн-проект после всех уточнений и утверждения заказчиком разрабатывается один раз в рамках договора. Последующие изменения дизайн-проекта и 3D-визуализации после утверждения и подписания — платные.',
+ 'Дизайн-проект разрабатывается 10–15 рабочих дней после замера помещения.',
+ '3D-визуализация разрабатывается 30 дней после согласования плана расстановки мебели.',
+ 'Если разработка и утверждение откладываются по вине заказчика, сроки сдвигаются на количество дней задержки. Это время также учитывается при передаче ключей строительной бригаде и добавляется к периоду ремонтных работ по договору.'
+];
+
+function render(){
+  uid=0;
+  const s=STEPS[cur];
+  let h=`<div class="stephead"><div class="stepno">Шаг ${cur+1} из ${STEPS.length}</div><h2 id="stepTitle" tabindex="-1">${esc(s.title)}</h2><p class="lead">${esc(s.lead)}</p></div>`;
+  if(cur===0) h+=`<div class="welcome"><b>Займёт около 10 минут.</b> Нажимайте на подходящие варианты или пишите своими словами. Чего не знаете — пропускайте, дизайнер уточнит в чате. Ответы сохраняются автоматически.</div>`;
+  if(s.dynamic){
+    const cs=cards();
+    if(!cs.length) h+=`<div class="empty">Здесь появятся блоки для спальни, гостиной, детских и санузлов. Сначала отметьте нужные комнаты на шаге «Комнаты».</div>`;
+    h+=cs.map(c=>`<section class="sub"><h3>${esc(c.title)}</h3>${c.fields.map(fieldHtml).join('')}</section>`).join('');
+    h+=fieldHtml(OTHER);
+  } else if(s.final){
+    h+=fieldHtml(NOTE);
+    h+=`<div class="f"><label class="check"><input type="checkbox" data-k="8.terms"${state['8.terms']?' checked':''}><span>С условиями разработки дизайн-проекта ознакомлен(а)</span></label></div>`;
+    h+=`<details class="terms"><summary>Условия разработки дизайн-проекта</summary><ul>${TERMS.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></details>`;
+    h+=`<div class="f"><div class="lab">Так выглядит бриф</div><div class="hint">В PDF те же данные, только в аккуратном оформлении.</div><textarea id="preview" rows="16" readonly></textarea></div>`;
+    h+=`<div class="actions"><button type="button" class="btn pri big" id="sendBtn" disabled>Готовлю PDF…</button><button type="button" class="btn big" id="dlBtn" disabled>Скачать PDF</button></div>`;
+    h+=`<p class="after">Откроется список приложений: выберите Telegram и рабочий чат, PDF прикрепится как файл. Если список не открылся, файл сохранится на телефон — прикрепите его в чат вручную.</p>`;
+    h+=`<button type="button" class="linkbtn" id="copyBtn">Скопировать текстом</button><br><button type="button" class="linkbtn" id="clearBtn">Очистить бриф и начать заново</button>`;
+  } else {
+    h+=s.fields.map(fieldHtml).join('');
+  }
+  $('#stage').innerHTML=h;
+  if(s.final){refreshPreview();schedulePdf(50)}
+  $('#back').hidden=cur===0;
+  $('#next').hidden=cur===LAST;
+  $('#next').textContent=cur===LAST-1?'К отправке':'Далее';
+  updateProgress();
+}
+
+/* ---------- данные брифа ---------- */
+function val(f){
+  const v=state[f.k]; if(v==null||v==='') return '';
+  if(f.k==='3.rooms'){const n=+state['3.kids']||1;return v.map(r=>r==='Детская'&&n>1?'Детская ×'+n:r).join(', ')}
+  if(Array.isArray(v)) return v.join(', ');
+  return String(v).trim().replace(/\s*\n\s*/g,'; ')+(f.unit?' '+f.unit:'');
+}
+const rowsOf=fields=>fields.filter(f=>f.t!=='hint'&&!f.skip).map(f=>({l:f.short||f.label,v:val(f)})).filter(r=>r.v);
+function model(){
+  const S=[];
+  STEPS.forEach(s=>{
+    if(s.fields){const r=rowsOf(s.fields); if(r.length) S.push({title:s.out,items:r})}
+    if(s.dynamic){
+      const items=[];
+      cards().forEach(c=>{const r=rowsOf(c.fields); if(r.length){items.push({h:c.title}); r.forEach(x=>items.push({...x,sub:true}))}});
+      items.push(...rowsOf([OTHER]));
+      if(items.length) S.push({title:'НАПОЛНЕНИЕ КОМНАТ',items});
+    }
+  });
+  const end=rowsOf([NOTE]); if(state['8.terms']) end.push({l:'Условия',v:'С условиями разработки дизайн-проекта ознакомлен(а)'});
+  if(end.length) S.push({title:'ДОПОЛНИТЕЛЬНО',items:end});
+  return S;
+}
+const dateStr=()=>new Date().toLocaleDateString('ru-RU');
+function buildText(){
+  const out=['ТЕХНИЧЕСКОЕ ЗАДАНИЕ на дизайн-проект интерьера','Дата: '+dateStr()];
+  model().forEach(s=>{out.push('',s.title); s.items.forEach(i=>out.push(i.h?i.h+':':(i.sub?'  ':'')+'• '+i.l+': '+i.v))});
+  return out.join('\n');
+}
+function refreshPreview(){const p=$('#preview'); if(p) p.value=buildText()}
+
+/* ---------- прогресс ---------- */
+const hasData=i=>Object.keys(state).some(k=>k.startsWith((i+1)+'.'));
+function updateProgress(){
+  document.querySelectorAll('.seg').forEach((b,i)=>{
+    b.classList.toggle('cur',i===cur);
+    b.classList.toggle('done',hasData(i));
+    b.setAttribute('aria-current',i===cur?'step':'false');
+  });
+}
+function go(i){pdfVer++;clearTimeout(pdfTimer);cur=Math.max(0,Math.min(LAST,i));render();window.scrollTo(0,0);save();const t=$('#stepTitle');if(t)t.focus({preventScroll:true})}
+
+function changed(k){
+  if(k==='3.rooms'){
+    const has=(state[k]||[]).includes('Детская');
+    if(has&&!state['3.kids']) state['3.kids']=1;
+    if(!has) delete state['3.kids'];
+    const box=$('#kidsBox'); if(box) box.hidden=!has;
+    const kv=$('#kidsVal'); if(kv) kv.textContent=state['3.kids']||1;
+  }
+  save(); updateProgress(); refreshPreview();
+  if(cur===LAST) schedulePdf(700);
+}
+
+/* ---------- события ---------- */
+function syncGroup(g){
+  g.querySelectorAll('.chip').forEach(c=>{
+    const cv=state[c.dataset.k], on=c.dataset.m==='m'?(Array.isArray(cv)&&cv.includes(c.dataset.v)):cv===c.dataset.v;
+    c.classList.toggle('on',on); c.setAttribute('aria-pressed',on);
+  });
+}
+$('#stage').addEventListener('click',e=>{
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const k=chip.dataset.k,v=chip.dataset.v,g=chip.parentElement;
+    if(chip.dataset.m==='m'){
+      let a=Array.isArray(state[k])?state[k].slice():[]; const i=a.indexOf(v);
+      if(i>-1) a.splice(i,1);
+      else{a.push(v); const ex=g.dataset.excl; if(ex) a=(v===ex)?[ex]:a.filter(x=>x!==ex)}
+      if(a.length) state[k]=a; else delete state[k];
+    } else { if(state[k]===v) delete state[k]; else state[k]=v; }
+    syncGroup(g); changed(k); return;
+  }
+  const sb=e.target.closest('[data-step]');
+  if(sb){
+    const k=sb.dataset.k, d=+sb.dataset.step;
+    const n=Math.max(1,Math.min(5,(+state[k]||1)+d)); state[k]=n;
+    $('#kidsVal').textContent=n; changed(k); return;
+  }
+  if(e.target.id==='sendBtn') sendIt();
+  if(e.target.id==='copyBtn') copyIt(false);
+  if(e.target.id==='dlBtn') downloadPdf();
+  if(e.target.id==='clearBtn'){ if(confirm('Стереть все ответы и начать заново?')){state={};go(0)} }
+});
+$('#stage').addEventListener('input',e=>{
+  const t=e.target;
+  if(t.id==='preview') return;
+  if(!t.dataset.k||t.type==='checkbox') return;
+  if(t.value.trim()==='') delete state[t.dataset.k]; else state[t.dataset.k]=t.value;
+  changed(t.dataset.k);
+});
+$('#stage').addEventListener('change',e=>{
+  const t=e.target;
+  if(t.type==='checkbox'&&t.dataset.k){ if(t.checked) state[t.dataset.k]='да'; else delete state[t.dataset.k]; changed(t.dataset.k) }
+});
+$('#back').onclick=()=>go(cur-1);
+$('#next').onclick=()=>go(cur+1);
+
+/* ---------- PDF ---------- */
+const H2C='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+const JSPDF='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+const loadScript=src=>new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>rej(new Error('Не загрузился '+src));document.head.appendChild(s)});
+async function ensureLibs(){
+  if(!window.html2canvas) await loadScript(H2C);
+  if(!(window.jspdf&&window.jspdf.jsPDF)) await loadScript(JSPDF);
+}
+const sentence=t=>t.charAt(0)+t.slice(1).toLowerCase();
+
+async function makePdf(){
+  await ensureLibs();
+  const PW=794, PH=1123, LIMIT=PH-72;
+  const S=model();
+  const root=document.createElement('div'); root.className='pdfroot'; document.body.appendChild(root);
+  try{
+    const mkPage=()=>{const p=document.createElement('div');p.className='pdfpage';
+      p.innerHTML='<div class="pdfbody"></div><div class="pdffoot"><span>Amanat Engineering · Бриф на дизайн-проект</span><span class="pn"></span></div>';
+      root.appendChild(p);return p};
+    const node=(cls,html,keep)=>{const d=document.createElement('div');d.className=cls;d.innerHTML=html;d._keep=!!keep;return d};
+    const nodes=[];
+    S.forEach(sec=>{
+      nodes.push(node('pdfh2',esc(sentence(sec.title)),true));
+      sec.items.forEach(i=>{
+        if(i.h) nodes.push(node('pdfh3',esc(i.h),true));
+        else nodes.push(node('pdfrow'+(i.sub?' pdfsub':''),`<div class="l">${esc(i.l)}</div><div class="v">${esc(i.v)}</div>`));
+      });
+    });
+    nodes.push(node('pdfh2','Условия разработки дизайн-проекта',true));
+    TERMS.forEach(t=>nodes.push(node('pdfp','• '+esc(t))));
+    // «заголовок + следующий элемент» не разрываем между страницами
+    const units=[]; let group=[];
+    nodes.forEach(n=>{group.push(n); if(!n._keep){const w=document.createElement('div');group.forEach(g=>w.appendChild(g));units.push(w);group=[]}});
+    if(group.length){const w=document.createElement('div');group.forEach(g=>w.appendChild(g));units.push(w)}
+
+    let page=mkPage(), body=page.firstChild;
+    const cname=(state['1.name']||'').trim();
+    body.innerHTML=`<div class="pdfhead"><div class="b">Amanat Engineering</div><h1>Техническое задание на дизайн-проект интерьера</h1><div class="d">${esc(dateStr())}${cname?' · '+esc(cname):''}</div></div>`;
+    units.forEach(u=>{
+      body.appendChild(u);
+      if(body.offsetHeight>LIMIT&&body.children.length>1){body.removeChild(u);page=mkPage();body=page.firstChild;body.appendChild(u)}
+    });
+    const pages=[...root.children];
+    pages.forEach((p,i)=>p.querySelector('.pn').textContent=(i+1)+' из '+pages.length);
+    const pdf=new window.jspdf.jsPDF({unit:'pt',format:'a4',orientation:'portrait'});
+    for(let i=0;i<pages.length;i++){
+      const c=await window.html2canvas(pages[i],{scale:2,backgroundColor:'#ffffff',logging:false,width:PW,height:PH,windowWidth:PW});
+      if(i>0) pdf.addPage('a4','portrait');
+      pdf.addImage(c.toDataURL('image/jpeg',0.92),'JPEG',0,0,595.28,841.89);
+    }
+    const nm=cname.split(/\s+/)[0]||'клиент';
+    return new File([pdf.output('blob')],'Бриф_дизайн-проект_'+nm+'.pdf',{type:'application/pdf'});
+  } finally { root.remove() }
+}
+
+let pdfFile=null,pdfVer=0,pdfFail=false,pdfTimer;
+function setSend(){
+  const sb=$('#sendBtn'),db=$('#dlBtn'); if(!sb||!db) return;
+  db.disabled=!pdfFile;
+  if(pdfFile){sb.disabled=false;sb.textContent='Отправить PDF в чат'}
+  else if(pdfFail){sb.disabled=false;sb.textContent='Отправить текстом';db.disabled=true}
+  else{sb.disabled=true;sb.textContent='Готовлю PDF…'}
+}
+function schedulePdf(delay){
+  if(cur!==LAST) return;
+  pdfFile=null; pdfFail=false; setSend();
+  clearTimeout(pdfTimer);
+  const v=++pdfVer;
+  pdfTimer=setTimeout(async()=>{
+    try{const f=await makePdf(); if(v!==pdfVer) return; pdfFile=f}
+    catch(e){console.error(e); if(v!==pdfVer) return; pdfFail=true}
+    setSend();
+  },delay);
+}
+
+/* ---------- отправка ---------- */
+let tt; function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),3800)}
+const getText=()=>($('#preview').value||'').trim();
+
+function downloadPdf(){
+  if(!pdfFile){toast('PDF ещё готовится');return}
+  const a=document.createElement('a'); a.href=URL.createObjectURL(pdfFile); a.download=pdfFile.name;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+}
+async function sendIt(){
+  const title='Бриф на дизайн-проект';
+  if(pdfFail) return sendText(title);
+  if(!pdfFile){toast('PDF ещё готовится, секунду');return}
+  if(navigator.canShare&&navigator.canShare({files:[pdfFile]})){
+    try{await navigator.share({files:[pdfFile],title});return}
+    catch(e){if(e&&e.name==='AbortError') return}
+  }
+  downloadPdf(); toast('PDF сохранён на устройство. Прикрепите его в рабочий чат');
+}
+async function sendText(title){
+  const text=getText();
+  if(navigator.share){try{await navigator.share({title,text});return}catch(e){if(e&&e.name==='AbortError') return}}
+  copyIt(true);
+}
+async function copyIt(fallback){
+  const text=getText(); if(!text){toast('Бриф пока пуст');return}
+  let ok=false;
+  try{ await navigator.clipboard.writeText(text); ok=true }catch(e){
+    try{ const p=$('#preview'); p.focus(); p.select(); ok=document.execCommand('copy'); p.setSelectionRange(0,0) }catch(_){}
+  }
+  toast(ok?(fallback?'Скопировано. Вставьте текст в рабочий чат':'Текст скопирован'):'Не удалось скопировать: выделите текст вручную');
+}
+
+/* ---------- старт ---------- */
+STEPS.forEach((s,i)=>{
+  const b=document.createElement('button'); b.type='button'; b.className='seg';
+  b.setAttribute('aria-label',(i+1)+'. '+s.name); b.onclick=()=>go(i); $('#segs').appendChild(b);
+});
+load(); render();
+ensureLibs().catch(()=>{});
+</script>
+</body>
+</html>
